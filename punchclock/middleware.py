@@ -35,10 +35,10 @@ class LogRequestAndResponse(object):
         logger.info(msg)
 
     def log_request(self, meta, request):
-        info = [request.META['REQUEST_METHOD'],
+        info = [request.META.get('REQUEST_METHOD', None),
                 request.get_full_path(),
-                request.META['CONTENT_LENGTH'],
-                request.META['REMOTE_ADDR'],
+                request.META.get('CONTENT_LENGTH', None),
+                request.META.get('REMOTE_ADDR', None),
                ]
         msg = "%s %s" % (meta.id, ' '.join([str(i) for i in info]))
         self.log(msg)

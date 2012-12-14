@@ -35,19 +35,19 @@ class LogRequestAndResponse(object):
         logger.info(msg)
 
     def log_request(self, meta, request):
-        info = [request.META.get('REQUEST_METHOD', None),
+        info = [request.META.get('REQUEST_METHOD', 'None'),
                 request.get_full_path(),
-                request.META.get('CONTENT_LENGTH', None),
-                request.META.get('REMOTE_ADDR', None),
+                request.META.get('CONTENT_LENGTH', 'None'),
+                request.META.get('REMOTE_ADDR', 'None'),
                ]
-        msg = "%s %s" % (meta.id, ' '.join([str(i) for i in info]))
+        msg = "%s %s" % (meta.id, ' '.join([unicode(i).encode('utf-8') for i in info]))
         self.log(msg)
 
     def log_response(self, meta, response):
         info = [response.status_code,
                 meta.time_to_now(),
                ]
-        msg = "%s %s" % (meta.id, ' '.join([str(i) for i in info]))
+        msg = "%s %s" % (meta.id, ' '.join([unicode(i).encode('utf-8') for i in info]))
         self.log(msg)
 
     def process_request(self, request):
